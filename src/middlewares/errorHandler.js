@@ -1,11 +1,10 @@
-import createError from 'http-errors';
+import { HttpError } from 'http-errors';
 
 export const errorHandler = (error, req, res, next) => {
-  if (error instanceof createError) {
+  if (error instanceof HttpError) {
     res.status(error.status).json({
       status: error.status,
       message: error.message,
-      data: error,
     });
     return;
   }
