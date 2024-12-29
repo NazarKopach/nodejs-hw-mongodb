@@ -1,11 +1,12 @@
 import { HttpError } from 'http-errors';
 
 export const errorHandler = (error, req, res, next) => {
-  if (error instanceof HttpError) {
+  if (error.status && typeof error.status === 'number') {
     res.status(error.status).json({
       status: error.status,
       message: error.message,
     });
+
     return;
   }
 
