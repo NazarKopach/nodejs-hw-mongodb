@@ -4,7 +4,7 @@ import createError from 'http-errors';
 export const isValidId = (req, res, next) => {
   const { id } = req.params;
   if (!isValidObjectId(id)) {
-    return next(createError(404, `${id} is not valid id`));
+    return next(createError(400, `${id} is not valid id`));
   }
   next();
 };

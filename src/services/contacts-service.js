@@ -1,6 +1,6 @@
 import ContactCollection from '../db/models/Contacts.js';
 
-import { calcPagionationData } from '../utils/calcPaginationData.js';
+import { calcPaginationData } from '../utils/calcPaginationData.js';
 
 export const getContacts = async ({
   page = 1,
@@ -14,9 +14,10 @@ export const getContacts = async ({
     .skip(skip)
     .limit(perPage)
     .sort({ [sortBy]: sortOrder });
+
   const totalItems = await ContactCollection.countDocuments();
 
-  const paginationData = calcPagionationData({ totalItems, page, perPage });
+  const paginationData = calcPaginationData({ totalItems, page, perPage });
 
   return {
     data,
@@ -29,16 +30,18 @@ export const getContacts = async ({
 
 export const getContactsById = (id) => ContactCollection.findById(id);
 
+export const getContact = (filter) => ContactCollection.findOne(filter);
+
 export const addContacts = (payload) => ContactCollection.create(payload);
 
 export const deleteContacts = (filter) => ContactCollection.findOneAndDelete(filter);
 
-export const updateContacts = async (_id, payload, options = {}) => {
+export const updateContacts = async (filter, payload, options = {}) => {
   const { upsert = false } = options;
-  const result = await ContactCollection.findOneAndUpdate({ _id }, payload, {
+  const result = await ContactCollection.findOneAndUpdate(filter, payload, {
     upsert,
     runValidators: true,
-    includeResultMetadata: true,
+    new: true,
   });
 
   if (!result || !result.value) return null;
