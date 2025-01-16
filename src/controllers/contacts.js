@@ -1,12 +1,11 @@
 import createError from 'http-errors';
-
 import * as ContactsServices from '../services/contacts-service.js';
-
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-
 import { parseSortParams } from '../utils/parseSortParams.js';
-
 import { sortByList } from '../db/models/Contacts.js';
+import { saveFileToUploadsDir } from '../utils/saveFileToUploadsDir.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
 
 export const getContactsControllers = async (req, res) => {
   const { _id: userId } = req.user;
@@ -45,8 +44,19 @@ export const getContactsById = async (req, res) => {
 };
 
 export const addContactsControlls = async (req, res) => {
+  const cloudinaryEnable = getEnvVar('CLOUDINARY_ENABLE') === 'true';
+
+  let photo;
+  if (req.file) {
+    if (cloudinaryEnable) {
+      photo = await saveFileToCloudinary(req.file);
+    } else {
+      photo = await saveFileToUploadsDir(req.file);
+    }
+  }
+
   const { _id: userId } = req.user;
-  const data = await ContactsServices.addContacts({ ...req.body, userId });
+  const data = await ContactsServices.addContacts({ ...req.body, photo, userId });
 
   res.status(201).json({
     status: 201,
