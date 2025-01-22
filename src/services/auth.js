@@ -5,12 +5,12 @@ import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { accessTokenLifetime, refreshTokenLifetime } from '../constants/users.js';
 
-import jwt from 'jsonwebtoken';
-
 import { SMTP, TEMPLATES_DIR } from '../constants/index.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { sendEmail } from '../utils/sendMail.js';
+import { getUsernameFromGoogleTokenPayload, validateCode } from '../utils/GoogleOAuth2.js';
 
+import jwt from 'jsonwebtoken';
 import handlebars from 'handlebars';
 import path from 'node:path';
 import fs from 'node:fs/promises';
@@ -144,4 +144,28 @@ export const resetPassword = async (payload) => {
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
   await UserCollection.updateOne({ _id: user._id }, { password: encryptedPassword });
+};
+
+export const loginOrRegisterWithGoogle = async (code) => {
+  const loginTicket = await validateCode(code);
+  const payload = loginTicket.getPayload();
+
+  let user = await UserCollection.findOne({ email: payload.email });
+  if (!user) {
+    const name = getUsernameFromGoogleTokenPayload(payload);
+    const password = await bcrypt.hash(randomBytes(10).toString('base64'), 10);
+
+    user = await UserCollection.create({
+      email: payload.email,
+      name,
+      password,
+    });
+  }
+
+  const sessionData = createSessionData();
+
+  return SessionCollection.create({
+    userId: user._id,
+    ...sessionData,
+  });
 };
