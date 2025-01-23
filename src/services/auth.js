@@ -8,7 +8,7 @@ import { accessTokenLifetime, refreshTokenLifetime } from '../constants/users.js
 import { SMTP, TEMPLATES_DIR } from '../constants/index.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { sendEmail } from '../utils/sendMail.js';
-import { getUsernameFromGoogleTokenPayload, validateCode } from '../utils/GoogleOAuth2.js';
+import { getUsernameFromGoogleTokenPayload, validateCode } from '../utils/googleOAuth2.js';
 
 import jwt from 'jsonwebtoken';
 import handlebars from 'handlebars';
