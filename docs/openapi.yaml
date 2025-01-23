@@ -13,6 +13,13 @@ servers:
   - url: http://localhost:3000
   - url: https://hw2-mongodb-b33s.onrender.com
 paths:
+  /contacts/{contactId}:
+    get:
+      $ref: ../swagger/paths/contacts/getById.yaml
+    patch:
+      $ref: ../swagger/paths/contacts/patch.yaml
+    delete:
+      $ref: ../swagger/paths/contacts/delete.yaml
   /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml

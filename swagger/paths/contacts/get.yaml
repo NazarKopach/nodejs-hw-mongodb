@@ -1,7 +1,7 @@
 tags:
   - Contacts
 summary: Get list of contacts
-operationId: postContacts
+operationId: getContacts
 description: 'Post contacs with this endpoint'
 security:
   - bearerAuth: []

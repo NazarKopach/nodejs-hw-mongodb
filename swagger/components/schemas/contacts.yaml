@@ -17,7 +17,7 @@ properties:
     type: string
     example: +3800000000
   contactType:
-    description: "Contacs's Type"
+    description: "Contacs's type"
     type: string
     enum: ['work', 'home', 'personal']
   isFavourite:
