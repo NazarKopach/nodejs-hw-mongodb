@@ -1,5 +1,5 @@
 import * as authServices from '../services/auth.js';
-import { generateOAuthUrl } from '../utils/googleOAuth2.js';
+import { generateOAuthUrl } from '../utils/GoogleOAuth2.js';
 
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
