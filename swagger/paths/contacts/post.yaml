@@ -23,6 +23,10 @@ requestBody:
             description: "Contact's number"
             type: string
             example: +3800000000
+          email:
+            description: "Contact's email"
+            type: string
+            example: example@mail.com
           contactType:
             description: "Contact's type"
             type: string

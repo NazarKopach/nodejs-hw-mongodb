@@ -16,6 +16,10 @@ properties:
     description: "Contacs's number"
     type: string
     example: +3800000000
+  email:
+    description: "Contact's email"
+    type: string
+    example: example@mail.com
   contactType:
     description: "Contacs's type"
     type: string
