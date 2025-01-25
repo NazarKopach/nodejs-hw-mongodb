@@ -1,5 +1,5 @@
 tags:
-  - Patch Contacts
+  - Contacts
 summary: Update a contact by ID
 operationId: patchContactById
 description: 'Update the details of a specific contact by its ID'

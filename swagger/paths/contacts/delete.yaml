@@ -1,6 +1,6 @@
 tags:
-  - Delete Contacts
-summary: Delete a contact by ID
+  - Contacts
+summary: Delete a contacts by ID
 operationId: deleteContactById
 description: 'Delete a specific contact by its ID'
 security:
@@ -15,14 +15,6 @@ parameters:
 responses:
   '204':
     description: Successfully deleted contact!
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            status:
-              type: integer
-              example: 204
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':

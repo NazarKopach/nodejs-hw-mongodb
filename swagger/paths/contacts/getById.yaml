@@ -1,5 +1,5 @@
 tags:
-  - Get by Id Contacts
+  - Contacts
 summary: Get a contact by ID
 operationId: getContactById
 description: 'Retrieve a specific contact by its ID with this endpoint'

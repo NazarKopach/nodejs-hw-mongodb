@@ -13,6 +13,11 @@ servers:
   - url: http://localhost:3000
   - url: https://hw2-mongodb-b33s.onrender.com
 paths:
+  /contacts:
+    get:
+      $ref: ../swagger/paths/contacts/get.yaml
+    post:
+      $ref: ../swagger/paths/contacts/post.yaml
   /contacts/{contactId}:
     get:
       $ref: ../swagger/paths/contacts/getById.yaml
@@ -20,11 +25,6 @@ paths:
       $ref: ../swagger/paths/contacts/patch.yaml
     delete:
       $ref: ../swagger/paths/contacts/delete.yaml
-  /contacts:
-    get:
-      $ref: ../swagger/paths/contacts/get.yaml
-    post:
-      $ref: ../swagger/paths/contacts/post.yaml
 components:
   securitySchemes:
     bearerAuth:
