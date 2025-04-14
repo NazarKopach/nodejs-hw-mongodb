@@ -22,7 +22,6 @@ const contactsSchema = new Schema(
     contactType: {
       type: String,
       enum: typeList,
-      required: true,
       default: 'personal',
     },
     photo: {
