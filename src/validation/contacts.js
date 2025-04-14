@@ -9,8 +9,7 @@ export const contactsAddSchema = Joi.object({
   isFavourite: Joi.boolean(),
   contactType: Joi.string()
     .valid(...typeList)
-    .default('personal')
-    .required(),
+    .default('personal'),
 });
 
 export const contactsUpdateSchema = Joi.object({
